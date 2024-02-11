@@ -10,21 +10,23 @@ export default {
       areas: data.areas,
     };
     try {
+      const token = context.rootGetters.token;
       const response = await axios.put(
-        `https://coach-finder-webapp-default-rtdb.firebaseio.com/coaches/${userId}.json`,
+        `https://coach-finder-webapp-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` +
+          token,
         coachData
       );
       if (response) {
         console.log('all done');
       }
-    } catch (error) {
-      console.log(error);
-    }
 
-    context.commit('registerCoach', {
-      ...coachData,
-      id: userId,
-    });
+      context.commit('registerCoach', {
+        ...coachData,
+        id: userId,
+      });
+    } catch (error) {
+      alert('error occurred');
+    }
   },
   async loadCoaches(context, payload) {
     if (!payload.refreshFroce && !context.getters.shouldUpdate) {

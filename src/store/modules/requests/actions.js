@@ -16,8 +16,10 @@ export default {
   },
   async fetchRequests(context) {
     const coachId = context.rootGetters.userId;
+    const token = context.rootGetters.token;
     const response = await axios.get(
-      `https://coach-finder-webapp-default-rtdb.firebaseio.com/requests/${coachId}.json`
+      `https://coach-finder-webapp-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=` +
+        token
     );
     const data = response.data;
     const requests = [];
