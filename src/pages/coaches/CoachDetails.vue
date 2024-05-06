@@ -41,7 +41,14 @@ export default {
       return this.selectedCoach.firstName + ' ' + this.selectedCoach.lastName;
     },
     contactLink() {
-      return this.$route.path + '/contact';
+      const currentPath = this.$route.path;
+      // Check if the current path already ends with '/contact'
+      if (currentPath.endsWith('/contact')) {
+        return currentPath; // Return current path as it is
+      } else {
+        // Append '/contact' to the current path
+        return currentPath + '/contact';
+      }
     },
     rate() {
       return this.selectedCoach.hourlyRate;
